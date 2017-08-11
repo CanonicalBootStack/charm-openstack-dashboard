@@ -441,7 +441,8 @@ class TestHorizonContexts(CharmTestCase):
                               {'units': {'openstack-dashboard-0': '10.5.0.1'},
                                'service_ports': {'dash_insecure': [80, 70],
                                                  'dash_secure': [443, 433]},
-                               'prefer_ipv6': False})
+                               'prefer_ipv6': False,
+                               'expose_haproxy_stats': False})
             _open.assert_called_with('/etc/default/haproxy', 'w')
             self.assertTrue(_file.write.called)
 
@@ -460,7 +461,23 @@ class TestHorizonContexts(CharmTestCase):
                                          'openstack-dashboard-2': '10.5.0.3'},
                                'service_ports': {'dash_insecure': [80, 70],
                                                  'dash_secure': [443, 433]},
-                               'prefer_ipv6': False})
+                               'prefer_ipv6': False,
+                               'expose_haproxy_stats': False})
+            _open.assert_called_with('/etc/default/haproxy', 'w')
+            self.assertTrue(_file.write.called)
+
+    def test_HorizonHAProxyContext_expose_stats(self):
+        self.test_config.set('expose-haproxy-stats', True)
+        self.relation_ids.return_value = []
+        self.local_unit.return_value = 'openstack-dashboard/0'
+        self.unit_get.return_value = "10.5.0.1"
+        with patch_open() as (_open, _file):
+            self.assertEquals(horizon_contexts.HorizonHAProxyContext()(),
+                              {'units': {'openstack-dashboard-0': '10.5.0.1'},
+                               'service_ports': {'dash_insecure': [80, 70],
+                                                 'dash_secure': [443, 433]},
+                               'prefer_ipv6': False,
+                               'expose_haproxy_stats': True})
             _open.assert_called_with('/etc/default/haproxy', 'w')
             self.assertTrue(_file.write.called)
 

@@ -321,3 +321,7 @@ options:
     description: |
       Module that overriding layout for customization.
       This is available from Liberty
+  expose-haproxy-stats:
+    default: False
+    type: boolean
+    description: If True, exposes the HAProxy stats interface globally.
