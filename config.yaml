@@ -370,3 +370,8 @@ options:
       avoid having the Consistency Groups tabs on Horizon without the feature
       enabled on Cinder, this also defaults to False. Setting this to True
       will make the Consistency Groups tabs appear on the dashboard.
+  disable-password-reveal:
+    type: boolean
+    default: false
+    description: |
+      If enabled, the reveal button for passwords is removed.

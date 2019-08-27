@@ -205,6 +205,7 @@ class HorizonContext(OSContextGenerator):
             'session_timeout': config('session-timeout'),
             'dropdown_max_items': config('dropdown-max-items'),
             'enable_consistency_groups': config('enable-consistency-groups'),
+            'disable_password_reveal': config('disable-password-reveal'),
         }
 
         return ctxt
